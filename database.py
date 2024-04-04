@@ -1,7 +1,11 @@
 import mysql.connector as mysql
-connexion = mysql.connect(
+
+#Initiation de la connextion a la base de donnees
+
+def connect_db():
+    return mysql.connect(
     user = "root", 
     password = "",
     host = "localhost",
-    database = "listepersonnes"
+    database = "Gestion"
 )
