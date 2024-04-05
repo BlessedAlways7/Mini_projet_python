@@ -19,25 +19,35 @@ print(message, personnes)
 
 def choix_option():
      print("\n\tMenu Principal : \n"
-               "\t[1] Ajouter une personne à la liste.\n"
-               "\t[2] Afficher les détails des personnes dans la liste.\n"
-               "\t[3] Rechercher une personne dans la liste.\n"
-               "\t[4] Filtrer personnes par son age.\n"
-               "\t[5] Ajouter une personne à la file d'attente.\n"
-               "\t[6] Supprimer une personne de la file d'attente.\n"
-               "\t[7] Ajouter une personne prioritaire à la file d'attente.\n"
-               "\t[8] Supprimer une personne prioritaire de la file d'attente.\n"
-               "\t[9] Reserver une place pour une personne.\n"
-               "\t[10] Afficher les places reservees.\n"
-               "\t[11] Afficher les places disponibles.\n"
-               "\t[12] Afficher les r/servations faites par une personne sp/cifique.\n"
-               "\t[13] Annuler réservations faites par une personne spécifique.\n"
-               "\t[14] Réserver une pplace spéciale pour une personne handicapée.\n"
-               "\t[15] Quitter le programme.")
-     choix = input("\nVeuillez saisir votre choix (1 à 15): ")
-     return choix
+           "\t[1] Ajouter une personne à la liste.\n"
+           "\t[2] Afficher les détails des personnes dans la liste.\n"
+           "\t[3] Rechercher une personne dans la liste.\n"
+           "\t[4] Filtrer personnes par son age.\n"
+           "\t[5] Ajouter une personne à la file d'attente.\n"
+           "\t[6] Supprimer une personne de la file d'attente.\n"
+           "\t[7] Ajouter une personne prioritaire à la file d'attente.\n"
+           "\t[8] Supprimer une personne prioritaire de la file d'attente.\n"
+           "\t[9] Reserver une place pour une personne.\n"
+           "\t[10] Afficher les places reservees.\n"
+           "\t[11] Afficher les places disponibles.\n"
+           "\t[12] Afficher les r/servations faites par une personne sp/cifique.\n"
+           "\t[13] Annuler réservations faites par une personne spécifique.\n"
+           "\t[14] Réserver une pplace spéciale pour une personne handicapée.\n"
+           "\t[15] Quitter le programme.")
+     while True:
+        choix = input("\nVeuillez saisir votre choix (1 à 15): ")
+        if choix.isdigit():
+            choix = int(choix)
+            if 1 <= choix <= 15:
+                return choix
+            else:
+                print("Choix invalide. Veuillez saisir un nombre entre 1 et 15.")
+        else:
+            print("Choix invalide. Veuillez saisir un nombre entier.")
+            
+choix_option()
        
-def ajouter_personne():
+def ajout_personne():
      nom = input("Nom de la personne: ")
      prenom = input("Prénom de la personne: ")
      genre = input("Genre de la personne (masculin ou féminin): ")
@@ -49,7 +59,8 @@ def saisie():
         while True:
                choix = choix_option()
                if choix =="1":
-                    personne = ajouter_personne()     
+                    personne = ajout_personne()        
+                    ListePersonnesDao,ajout_personne(personne)
                     print(f"La personne {nom, prenom} a été ajouté avec succes")
 
                elif choix == "2":
@@ -129,7 +140,7 @@ def saisie():
                else:
                     print("\nChoix incorrect.\nVeuillez saisir un nombre entre 1 et 15.")
                
-           
+saisie()           
       
 
           

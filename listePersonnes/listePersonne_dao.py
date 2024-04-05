@@ -1,5 +1,5 @@
 import database
-from listePersonnes.listePersonne import Personnes
+from listePersonne import Personnes
 
         
 class ListePersonnesDao:
@@ -14,14 +14,14 @@ class ListePersonnesDao:
 
     @classmethod    
     def ajouter_personne(cls,pers:Personnes):
-        sql = """INSERT INTO Personnes (nom, prenom, sex,age) 
+        sql = """INSERT INTO personnes (nom, prenom, sex,age) 
                  VALUES (%s, %s, %s, %s)
               """
         params= (pers.nom, pers.prenom, pers.genre, pers.age)
         try:
             ListePersonnesDao.cursor.execute(sql, params)
             ListePersonnesDao.connexion.commit()
-            ListePersonnesDao.cursor.close()
+            #ListePersonnesDao.cursor.close()
             message = (f"{pers.nom, pers.prenom} est ajouté avec succès")
         except Exception as error:
             message  = (f"Une erreur est survenue, veuillez contacter l'administrateur")
@@ -31,7 +31,7 @@ class ListePersonnesDao:
 
     @classmethod
     def afficher_personnes(cls):
-        sql = "SELECT * FROM Personnes"
+        sql = "SELECT * FROM personnes"
         try:
             ListePersonnesDao.cursor.execute(sql)
             personnes = ListePersonnesDao.cursor.fetchall()
@@ -45,7 +45,7 @@ class ListePersonnesDao:
 
     @classmethod
     def rechercher_personne(cls, nom):
-        sql ="SELECT * FROM Personnes WHERE nom = %s"
+        sql ="SELECT * FROM personnes WHERE nom = %s"
         ListePersonnesDao.cursor.execute(sql,(nom,))
         personnes = ListePersonnesDao.cursor.fetchone()
         ListePersonnesDao.cursor.close()
@@ -53,7 +53,7 @@ class ListePersonnesDao:
     
     @classmethod
     def filtrer_personnes_par_age(cls, min_age, max_age):
-        sql = "SELECT * FROM Personnes WHERE age BETWEEN %s AND %s"
+        sql = "SELECT * FROM personnes WHERE age BETWEEN %s AND %s"
         ListePersonnesDao.cursor.execute(sql,(min_age, max_age))
         personnes = ListePersonnesDao.cursor.fetchall()
         ListePersonnesDao.cursor.close()

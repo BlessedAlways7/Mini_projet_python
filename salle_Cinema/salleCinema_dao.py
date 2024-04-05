@@ -12,7 +12,7 @@ class SalleCinemaDao:
 
     @classmethod
     def reserver_place(cls, nom, place):
-        if cls._places_disponibles() > 0 :
+        if cls.places_disponibles() > 0 :
             sql = """INSERT INTO Reservations (nom, place)
                      VALUES (%s, %s)
                  """
@@ -35,7 +35,7 @@ class SalleCinemaDao:
 
     @classmethod
     def places_disponibles(cls):
-        return cls._places_totales() - cls._places_reservees()
+        return cls.places_totales() - cls.places_reservees()
 
 
     @classmethod
