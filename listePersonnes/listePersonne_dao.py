@@ -14,14 +14,15 @@ class ListePersonnesDao:
 
     @classmethod    
     def ajouter_personne(cls,pers:Personnes):
-        sql = """INSERT INTO personnes (nom, prenom, sex,age) 
+        sql = """INSERT INTO personnes (nom, prenom, genre,age) 
                  VALUES (%s, %s, %s, %s)
               """
         params= (pers.nom, pers.prenom, pers.genre, pers.age)
         try:
+            
             ListePersonnesDao.cursor.execute(sql, params)
             ListePersonnesDao.connexion.commit()
-            #ListePersonnesDao.cursor.close()
+            
             message = (f"{pers.nom, pers.prenom} est ajouté avec succès")
         except Exception as error:
             message  = (f"Une erreur est survenue, veuillez contacter l'administrateur")
@@ -36,7 +37,7 @@ class ListePersonnesDao:
             ListePersonnesDao.cursor.execute(sql)
             personnes = ListePersonnesDao.cursor.fetchall()
             message = "Affichage réussi!"
-            ListePersonnesDao.cursor.close()
+           
         except Exception as error:
             message ="Une erreur empêche l'affichage"
             personnes = []
@@ -48,7 +49,7 @@ class ListePersonnesDao:
         sql ="SELECT * FROM personnes WHERE nom = %s"
         ListePersonnesDao.cursor.execute(sql,(nom,))
         personnes = ListePersonnesDao.cursor.fetchone()
-        ListePersonnesDao.cursor.close()
+        
         return personnes
     
     @classmethod
@@ -56,7 +57,7 @@ class ListePersonnesDao:
         sql = "SELECT * FROM personnes WHERE age BETWEEN %s AND %s"
         ListePersonnesDao.cursor.execute(sql,(min_age, max_age))
         personnes = ListePersonnesDao.cursor.fetchall()
-        ListePersonnesDao.cursor.close()
+        
         return personnes
    
    

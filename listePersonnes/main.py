@@ -10,47 +10,49 @@ def choix_option():
            "\t[2] Afficher les détails des personnes dans la liste.\n"
            "\t[3] Rechercher une personne dans la liste.\n"
            "\t[4] Filtrer personnes par son age.\n"
-           "\t[5] Quitter le programme.")
-      choix = input("Veuillez choisir parmi les options suivantes: ")
-      return choix
-
-choix_option()
+           "\t[5] Quitter le programme.\n")
      
-def ajout_personne():
-     nom = input("Nom de la personne: ")
-     prenom = input("Prénom de la personne: ")
-     genre = input("Genre de la personne (masculin ou féminin): ")
-     age = input("Age de la personne: ")
-     return Personnes(nom,prenom,genre,age)
 
 def saisie():
-        personne= Personnes()  
+        listepersonneDao = ListePersonnesDao
         while True:
-               choix = choix_option()
+               choix_option()
+               choix = input("Veuillez choisir parmi les options suivantes: ")
+
                if choix =="1":
-                    personne = ajout_personne()     
+                    nom = input("Nom de la personne: ")
+                    prenom = input("Prénom de la personne: ")
+                    genre = input("Genre de la personne (masculin ou féminin): ")
+                    age = input("Age de la personne: ")
+                    personne = Personnes(nom,prenom,genre,age)
                     ListePersonnesDao.ajouter_personne(personne)
-                    print(f"La personne {nom} a été ajouté avec succes")
+                    print(f"{nom} a été ajouté avec succes")
 
                elif choix == "2":
-                    personne = ListePersonnesDao.afficher_personnes()
-                    print(personne)
+                    personnes =ListePersonnesDao.afficher_personnes()
+                    if personnes:
+                         for personne in personnes:
+                              print(personne)
+                    else:
+                              print("Il n'y a personne dans la liste.")
                     
                elif choix == "3":
                     nom = input("Entrez le nom de la personne que vous cherchez : ")
-                    ListePersonnesDao.rechercher_personne(nom)
-                    if nom:
-                          print(ListePersonnesDao.rechercher_personne())
-                          print(f"{nom} est dans la liste")       
+                    personne  = ListePersonnesDao.rechercher_personne(nom)
+                    if personne:
+                         print(f"{nom} est dans notre  base de donnée")       
                     else:
-                        print("Cette personne n'est pas dans notre base de données.")
+                        print(f"{nom} n'est pas dans notre base de donnée.")
                              
                elif choix == "4":
                     min_age = int(input("Age minimum: "))
                     max_age = int(input("Age maximum: "))
                     personnes_filtrees = ListePersonnesDao.filtrer_personnes_par_age (min_age, max_age)
-                    for personne in personnes_filtrees:
-                         print(personne)
+                    if personnes_filtrees:
+                         for personne in personnes_filtrees:
+                              print(personne)
+                    else:
+                          print ("Aucune personne ne correspond à votre tranche d'âge.")
                          
                elif choix == "5":
                     print("Au revoir!")
