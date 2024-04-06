@@ -29,12 +29,13 @@ def saisie():
                     print(f"{nom} a été ajouté avec succes")
 
                elif choix == "2":
-                    personnes =ListePersonnesDao.afficher_personnes()
+                    message, personnes =ListePersonnesDao.afficher_personnes()
                     if personnes:
+                         print(message)
                          for personne in personnes:
                               print(personne)
                     else:
-                              print("Il n'y a personne dans la liste.")
+                              print(message)
                     
                elif choix == "3":
                     nom = input("Entrez le nom de la personne que vous cherchez : ")

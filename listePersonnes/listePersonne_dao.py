@@ -17,15 +17,15 @@ class ListePersonnesDao:
         sql = """INSERT INTO personnes (nom, prenom, genre,age) 
                  VALUES (%s, %s, %s, %s)
               """
-        params= (pers.nom, pers.prenom, pers.genre, pers.age)
+        params= pers.nom, pers.prenom, pers.genre, pers.age
         try:
             
             ListePersonnesDao.cursor.execute(sql, params)
             ListePersonnesDao.connexion.commit()
             
-            message = (f"{pers.nom, pers.prenom} est ajouté avec succès")
+            message = f"{pers.nom, pers.prenom} est ajouté avec succès"
         except Exception as error:
-            message  = (f"Une erreur est survenue, veuillez contacter l'administrateur")
+            message  = f"Une erreur est survenue, veuillez contacter l'administrateur"
             
         return message
        
@@ -41,7 +41,7 @@ class ListePersonnesDao:
         except Exception as error:
             message ="Une erreur empêche l'affichage"
             personnes = []
-        return (message, personnes)
+        return message, personnes
     
 
     @classmethod

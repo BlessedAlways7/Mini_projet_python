@@ -5,61 +5,73 @@ from salleCinema_dao import SalleCinemaDao
 
 def choix_option():
       print("\n\tMenu Principal : \n"
-           "\t[1] Réserver une place.\n"
-           "\t[2] Afficher les places reservees.\n"
-           "\t[3] Afficher les places disponibles.\n"
-           "\t[4] Afficher les réservations faites par une personne spécifique.\n"
-           "\t[5] Annuler réservations faites par une personne spécifique.\n"
-           "\t[6] Réserver une pplace spéciale pour une personne handicapée.\n"
-           "\t[7] Quitter le programme.")
-      choix = input("Veuillez choisir parmi les options suivantes: ")
-      return choix
-
-choix_option()
-
-def reserve_place():
-    nom = input("Nom de la personne qui réserve une place: ")
-    prenom = input("Prénom de la personne qui réserve: ")
-    place = input("Nombre de place à réserver : ")
-    return Reservations(nom,prenom,place)
+           "\t[12] Réserver une place.\n"
+           "\t[13] Réserver une place spéciale pour une personne handicapée.\n"
+           "\t[14] Afficher les réservations.\n"
+           "\t[15] Afficher les places disponibles.\n"
+           "\t[16] Filtrer les réservations faites par une personne.\n"
+           "\t[17] Annuler réservations faites par une personne.\n"
+           "\t[18] Quitter le programme.\n")
+      
 
 def saisie(): 
         salleCinemaDao= SalleCinemaDao
         while True:
-              choix = choix_option()
-              if choix =="1":
-                  nom = input("Nom de la personne qui réserve une place: ")
-                  prenom = input("Prénom de la personne qui réserve: ")
-                  place = input("Nombre de place à réserver : ")
-                  SalleCinemaDao.reserver_place(nom, prenom,place)
-                  if nom:
-                    print(f"{nom} a réservé {place} place.")
-                  else:
-                    print("Désole, il n'y a plus de places disponibles.")
+            choix = choix_option()
+            choix = input("Veuillez choisir parmi les options suivantes: ")
 
-              elif choix == "2":
-                  print("Les places réservées sont:")
-                  SalleCinemaDao.afficher_places_reservees()
+            if choix =="12":
+                nom = input("Nom de la personne qui réserve une place: ")
+                prenom = input("Prénom de la personne qui réserve: ")
+                place = input("Nombre de place à réserver : ")
 
-              elif choix == "3":
-                  print(f"Il y a {SalleCinemaDao.places_disponibles()} places disponibles.")
+                SalleCinemaDao.reserver_place(nom, prenom, place)
+                print(f"{nom} a été ajouté à la réservation avec succès.")
 
-              elif choix == "4":
-                  nom = input("Nom de la personne qui a faite la réservations : ")
-                  SalleCinemaDao.filtrer_reservations_par_personne(nom)   
+            elif choix == "13":
+                nom = input("Nom de la personne pour laquelle il faut réserver une place spéciale: ")
+                prenom = input("Prénom de la personne pour laquelle il faut réserver une place spéciale: ")
+                place_speciale = input("Numéro de place spéciale à réservé : ")
+                print(SalleCinemaDao.reserver_place_speciale(nom,prenom, place_speciale))   
                     
-              elif choix == "5":
-                  nom = input("Nom de la personne pour annuler les réservations : ")
-                  SalleCinemaDao.annuler_reservation(nom)
 
-              elif choix == "6":
-                  nom = input("Nom de la personne pour laquelle il faut réserver une place spéciale: ")
-                  SalleCinemaDao.reserver_place_speciale(nom)
+            elif choix == "14":
+                message, reservations = SalleCinemaDao.afficher_places_reservees()
+                if reservations:
+                    print(message)
+                    for reservation in reservations:
+                        print(reservation)
+                else:
+                    print("Aucune réservation a été faite")
 
-              elif choix == "7":
-                  print("Au revoir!")
-                  break
-              else:
+                                
+            elif choix == "15":
+                disponibles = SalleCinemaDao.nombre_places_disponibles()
+                if isinstance(disponibles, int):
+                    print(f"Nombre de places disponibles: {disponibles}")
+                else:
+                    print(disponibles)
+                    
+
+            elif choix == "16":
+                nom = input("Nom de la personne qui a faite la réservations : ")
+                reservations, message =SalleCinemaDao.filtrer_reservations_par_personne(nom)   
+                if reservations:
+                    for reservation in reservations:
+                        print(reservation)
+                else:
+                    print(message)
+
+
+            elif choix == "17":
+                nom = input("Nom de la personne pour annuler les réservations : ")
+                message = SalleCinemaDao.annuler_reservation(nom)
+                print(message)
+                
+            elif choix == "18":
+                print("Au revoir!")
+                break
+            else:
                   print("\nChoix incorrect.\nVeuillez saisir un nombre entre 1 et 7.")
                
 saisie()           

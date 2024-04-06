@@ -1,9 +1,9 @@
 class FileAttente:
-    def __init__(self, nom, prenom, age, prioritaire):
+    def __init__(self, nom, prenom,  prioritaire):
         self.__nom = nom
         self.__prenom = prenom
-        self.age = age
-        self.prioritaire = prioritaire
+        
+        self.__prioritaire = prioritaire
 
 
     @property
@@ -22,16 +22,17 @@ class FileAttente:
     def prenom(self, value):
         self.__prenom = value
 
-    def get_age(self):
-        return self.age
+    @property
+    def prioritaire(self):
+        return self.__prioritaire
 
-    def set_age(self, value):
-        self.age = value
+    @prioritaire.setter
+    def prioritaire(self, value):
+        self.__prioritaire = value
 
-    def get_prioritaire(self):
-        return self.prioritaire
+   
 
-    def set_prioritaire(self, value):
-        self.prioritaire = value
 
+
+   
 

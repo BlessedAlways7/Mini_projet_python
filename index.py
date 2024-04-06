@@ -1,3 +1,4 @@
+""""
 from listePersonnes.listePersonne import Personnes
 from listePersonnes.listePersonne_dao import ListePersonnesDao
 from fileAttentes.fileAttente import FileAttente
@@ -54,26 +55,30 @@ def ajout_personne():
      age = input("Age de la personne: ")
      return Personnes(nom,prenom,genre,age)
 
-def saisie():
-        personne= Personnes()  
-        while True:
+def saisie(): 
+         while True:
                choix = choix_option()
                if choix =="1":
-                    personne = ajout_personne()        
-                    ListePersonnesDao,ajout_personne(personne)
-                    print(f"La personne {nom, prenom} a été ajouté avec succes")
+                    personne = ajout_personne()     
+                    ListePersonnesDao.ajouter_personne(personne)
+                    print(f"La personne {personne.nom} a été ajouté avec succes")
 
                elif choix == "2":
-                    print(Personnes)
+                    personnes =ListePersonnesDao.afficher_personnes()
+                    for personne in personnes:
+                         print(personne)
+                    else:
+                         print("Il n'y a personne dans la liste.")
                     
                elif choix == "3":
                     nom = input("Entrez le nom de la personne que vous cherchez : ")
-                    resultat = ListePersonnesDao.rechercher_personne(nom)
-                    if resultat is None:
-                         print("Cette personne n'est pas dans notre base de données.")
+                    personne  = ListePersonnesDao.rechercher_personne(nom)
+                    if personne:
+                          print(personne)
+                          print(f"{nom} est dans la liste")       
                     else:
-                         print(f"{resultat} est dans la liste")
-                    
+                        print("Cette personne n'est pas dans notre base de données.")
+                             
                elif choix == "4":
                     min_age = int(input("Age minimum: "))
                     max_age = int(input("Age maximum: "))
@@ -142,7 +147,7 @@ def saisie():
                
 saisie()           
       
-
+"""
           
    
 
