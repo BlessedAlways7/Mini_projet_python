@@ -24,14 +24,14 @@ def saisie():
                 nom = input("Nom de la personne qui réserve une place: ")
                 prenom = input("Prénom de la personne qui réserve: ")
                 place = input("Nombre de place à réserver : ")
-
+                
                 SalleCinemaDao.reserver_place(nom, prenom, place)
                 print(f"{nom} a été ajouté à la réservation avec succès.")
 
             elif choix == "13":
                 nom = input("Nom de la personne pour laquelle il faut réserver une place spéciale: ")
                 prenom = input("Prénom de la personne pour laquelle il faut réserver une place spéciale: ")
-                place_speciale = input("Numéro de place spéciale à réservé : ")
+                place_speciale = input("Nombre de place spéciale à réservé : ")
                 print(SalleCinemaDao.reserver_place_speciale(nom,prenom, place_speciale))   
                     
 
@@ -47,7 +47,7 @@ def saisie():
                                 
             elif choix == "15":
                 disponibles = SalleCinemaDao.nombre_places_disponibles()
-                if isinstance(disponibles, int):
+                if disponibles:
                     print(f"Nombre de places disponibles: {disponibles}")
                 else:
                     print(disponibles)
