@@ -1,3 +1,4 @@
+# Création de la classe Personne avec les attributs.
 class Personnes:
     def __init__(self,nom,prenom,genre, age) -> None:
         self.__nom = nom

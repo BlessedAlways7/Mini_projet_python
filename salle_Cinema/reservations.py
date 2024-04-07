@@ -1,10 +1,10 @@
+# Création de la classe Réservations avec les attributs.
 class Reservations:
     def __init__(self,nom,prenom, place, place_speciale) -> None:
         self.__nom = nom
         self.__prenom = prenom
         self.__place= place
         self.__place_speciale= place_speciale
-
 
     @property
     def nom(self):

@@ -1,10 +1,10 @@
+# Création de la classe File Attente avec les attributs.
 class FileAttente:
-    def __init__(self, nom, prenom,  prioritaire):
+    def __init__(self, nom, prenom, age, prioritaire):
         self.__nom = nom
         self.__prenom = prenom
-        
-        self.__prioritaire = prioritaire
-
+        self.age = age
+        self.prioritaire = prioritaire
 
     @property
     def nom(self):
@@ -22,17 +22,16 @@ class FileAttente:
     def prenom(self, value):
         self.__prenom = value
 
-    @property
-    def prioritaire(self):
-        return self.__prioritaire
+    def get_age(self):
+        return self.age
 
-    @prioritaire.setter
-    def prioritaire(self, value):
-        self.__prioritaire = value
+    def set_age(self, value):
+        self.age = value
 
-   
+    def get_prioritaire(self):
+        return self.prioritaire
 
+    def set_prioritaire(self, value):
+        self.prioritaire = value
 
-
-   
 

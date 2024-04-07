@@ -1,15 +1,16 @@
 
 import database
-#from salle_Cinema.reservations import Reservations
-import reservations
+from salle_Cinema.reservations import Reservations
 
-
+# Création de la classe SalleCinemaDao
 class SalleCinemaDao:
     connexion = database.connect_db()
     cursor = connexion.cursor()
 
     def __init__(self) -> None:
         pass
+
+# Méthode reserver_place pour réserver une place dans la Salle Cinéma.
 
     @classmethod
     def reserver_place(cls, nom, prenom, place):
@@ -21,7 +22,9 @@ class SalleCinemaDao:
             print(f"{nom} {prenom} a réservé {place} place.")          
         except Exception as error:
             return f"Erreur lors de la reservation: {error}"
-        
+
+# Méthode reserver_place_speciale pour réserver une place spéciale dans la Salle Cinéma.   
+  
     @classmethod
     def reserver_place_speciale(cls,nom, prenom, place_speciale):
         sql = """INSERT INTO reservations (nom, prenom, place, place_speciale) VALUES (%s, %s, 0, %s)""" 
@@ -33,6 +36,7 @@ class SalleCinemaDao:
         except Exception as error:
             return f"Impossible d'effectuer cette opération: {error}"
 
+# Méthode afficher_places_reservees pour afficher les places dans la Salle Cinéma.     
 
     @classmethod
     def afficher_places_reservees(cls):
@@ -44,7 +48,9 @@ class SalleCinemaDao:
         except Exception as error:
             message= f"Erreur lors de l'affichage des réservations : {error}"
         return message
-        
+
+# Méthode places_reservees pour calculer le nombres de réservations de la Salle Cinéma. 
+            
     @classmethod
     def places_reservees(cls):
         sql = "SELECT SUM(place) FROM reservations"
@@ -57,7 +63,8 @@ class SalleCinemaDao:
             print (f"Erreur lors de la récupération des réservations! {error}")
             return 0
 
-        
+# Méthode nombre_places_disponibles pour calculer les places disponibles dans la Salle Cinéma.    
+ 
     @classmethod
     def nombre_places_disponibles(cls):
         capacite_totale= 200
@@ -69,6 +76,8 @@ class SalleCinemaDao:
             print(f"Erreur lors du calcul des places disponibles!", error)
             return 0
 
+# Méthode filtrer_reservations_par_personnes pour afficher la réservation Salle Cinéma d'une personne.   
+  
     @classmethod
     def filtrer_reservations_par_personne(cls,nom):
         sql = """SELECT *FROM reservations WHERE nom = %s"""
@@ -76,13 +85,15 @@ class SalleCinemaDao:
             SalleCinemaDao.cursor.execute(sql,(nom,))
             reservations = SalleCinemaDao.cursor.fetchall()
             if reservations:
-                return reservations, f"La personne {nom} a réservé la place."
+                message = f"{nom} a réservé une place."          
             else:
                 return None, f" Malheureusement, aucune reservation à été fait pour {nom}!"
+            return reservations,message
         except Exception as error:
            return None, f"Erreur lors de la récupération des réservations : {error}"
         
-
+# Méthode annuler_reservation pour annuler une réservation dans la Salle Cinéma.  
+   
     @classmethod
     def annuler_reservation(cls,nom):
         sql = """DELETE FROM reservations WHERE nom = %s"""
@@ -95,5 +106,5 @@ class SalleCinemaDao:
                 return f"Impossible d'annuler cette réservation car elle n'existe pas."
         except Exception as error:
             return f"Une erreur est survenue lors de l'annulation de la réservation : {error}"
-           
-                
+        
+    
