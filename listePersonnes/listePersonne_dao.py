@@ -60,4 +60,3 @@ class ListePersonnesDao:
         
         return personnes
    
-   

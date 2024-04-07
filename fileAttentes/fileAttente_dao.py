@@ -64,10 +64,3 @@ class FileAttenteDao:
             else :
                 return (f"{nom} n'a pas été trouvée de la file d'attente.")
     
-
-
-            
-           
-
-        
-              
